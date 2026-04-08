@@ -129,7 +129,8 @@
   }
 
   const spawnX = Math.floor(COLS / 2) - 2; // centers the 4x4 box
-  const spawnY = -2; // allow blocks to spawn above the visible playfield
+  // Spawn high enough for gameplay, but keep at least part visible immediately.
+  const spawnY = -1;
 
   function collides(piece, dx = 0, dy = 0, drot = 0) {
     const rotation = (piece.rotation + drot + 4) % 4;
