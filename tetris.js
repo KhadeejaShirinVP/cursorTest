@@ -122,6 +122,7 @@
     3: 500,
     4: 800,
   };
+  const LOCK_BONUS = 10;
 
   function setScore(value) {
     score = value;
@@ -238,10 +239,15 @@
   }
 
   function softDropOnce() {
-    if (tryMove(0, 1)) return;
+    if (tryMove(0, 1)) {
+      // Reward manual soft-drop input.
+      setScore(score + 1);
+      return;
+    }
 
     // If we can't move down, lock immediately for MVP responsiveness.
     lockPiece();
+    setScore(score + LOCK_BONUS);
     clearLines();
     spawnPiece();
   }
@@ -249,6 +255,7 @@
   function attemptDownInTick() {
     if (!tryMove(0, 1)) {
       lockPiece();
+      setScore(score + LOCK_BONUS);
       clearLines();
       spawnPiece();
       return false;
